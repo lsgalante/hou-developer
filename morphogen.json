@@ -1,0 +1,13 @@
+{
+	"env":
+	[
+		{
+			"HOUDINI_PATH":
+			"C:/Users/lucas/OneDrive/cg_assets/hou_libs/morphogen"
+		},
+		{
+			"PYTHONPATH": 
+			"C:/Users/lucas/OneDrive/cg_assets/hou_libs/morphogen/scripts"
+		}
+	]
+}
