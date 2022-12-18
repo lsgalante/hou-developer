@@ -3,11 +3,11 @@
 	[
 		{
 			"HOUDINI_PATH":
-			"C:/Users/lucas/OneDrive/cg_assets/hou_libs/morphogen"
+			"C:/Users/lucas/OneDrive/Git/morphogen"
 		},
 		{
 			"PYTHONPATH": 
-			"C:/Users/lucas/OneDrive/cg_assets/hou_libs/morphogen/scripts"
+			"C:/Users/lucas/OneDrive/Git/morphogen/scripts"
 		}
 	]
 }
