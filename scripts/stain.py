@@ -1,6 +1,7 @@
 import hou
 
 from colorschemes import *
+# from overwrite import *
 
 def createdestroy_func(kwargs):
     node = kwargs["node"]
@@ -124,19 +125,31 @@ def preset_func(kwargs):
 
 def ramp_func(kwargs):
     node = kwargs["node"]
-    index = kwargs["script_multiparm_index"]
+    nesting = int(kwargs["script_multiparm_nesting"])
     vistup = hou.viewportVisualizers.visualizers(
         hou.viewportVisualizerCategory.Node,
         node
     )
-    vis = vistup[int(index)]
+    index = "undefined"
+    if nesting == 1:
+        index = kwargs["script_multiparm_index"]
+    if nesting > 1:
+        index = kwargs["script_multiparm_index2"]
+    indexint = int(index)
+    vis = vistup[indexint]
     ramp = node.parm("ramp" + index).eval()
     vis.setParm("colorramp", ramp)
 
 def overwrite_func(kwargs):
     node = kwargs["node"]
     index = kwargs["script_multiparm_index"]
-    ramp = node.parm("preset" + index).eval()
+    ramp = node.parm("ramp" + index).eval()
+    basis = ramp.basis()
+    keys = ramp.keys()
+    values = ramp.values()
+    scheme = "candypeach = hou.Ramp(" + str(basis) + ", " + str(keys) + ", " + str(values) + ") \n"
+    with open("C:/Users/lucas/OneDrive/Git/morphogen/scripts/overwrite.py", "a") as append:
+        append.write(scheme)
 
 def color_func(kwargs):
     node = kwargs["node"]
