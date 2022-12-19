@@ -7,4 +7,4 @@ candypeach = hou.Ramp(
     (0, 1),
     ((0, 0, 0), (0, 0, 0))
 ) 
-x
+pol
