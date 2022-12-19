@@ -144,12 +144,11 @@ def overwrite_func(kwargs):
     node = kwargs["node"]
     index = kwargs["script_multiparm_index"]
     ramp = node.parm("ramp" + index).eval()
-    basis = ramp.basis()
-    keys = ramp.keys()
-    values = ramp.values()
-    scheme = "candypeach = hou.Ramp(" + str(basis) + ", " + str(keys) + ", " + str(values) + ") \n"
-    with open("C:/Users/lucas/OneDrive/Git/morphogen/scripts/overwrite.py", "a") as append:
-        append.write(scheme)
+    preset = str(node.parm("preset" + index).evalAsString())
+    scheme = "candypeach = hou.Ramp(" + str(ramp.basis()) + ", " + str(ramp.keys()) + ", " + str(ramp.values()) + ") \n"
+    # with open("C:/Users/lucas/OneDrive/Git/morphogen/scripts/overwrite.py", "a") as append:
+    #     append.write(scheme)
+    test = hou.ui.readInput("Overwrite Preset?", ("Yes", "Cancel"), hou.severityType.Message, 0, -1, None, None, preset)
 
 def color_func(kwargs):
     node = kwargs["node"]
