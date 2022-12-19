@@ -1,4 +1,5 @@
 import hou
+
 from colorschemes import *
 
 def createdestroy_func(kwargs):
@@ -20,6 +21,15 @@ def createdestroy_func(kwargs):
                 node
             )
 
+            vis.setIsActive(True, None)
+            vis.setParm("colortype", 1)
+            vis.setParm("rangespec", 1)
+            vis.setParm("clamptype", 1)
+            vis.setParm("colorramp", candypeach)
+
+            ramp = node.parm("ramp" + str(x))
+            ramp.set(candypeach, None, False)
+
         if ops < len(vistup) and (x + 2) == len(vistup):
             vis = vistup[x + 1]
             vis.destroy()
@@ -28,7 +38,7 @@ def createdestroy_func(kwargs):
         vis = vistup[0]
         vis.destroy()
 
-#---------------------global funcs---------------------#
+####------------------------------global funcs------------------------------####
 def enable_func(kwargs):
     node = kwargs["node"]
     parm = kwargs["parm"]
@@ -79,16 +89,19 @@ def datatype_func(kwargs):
 
     if type == 0:
         vis.setType(vistypes[1])
-        vis.setParm("colortype", 1)
-        vis.setParm("rangespec", 1)
-        vis.setPar("clamptype", 1)
+        color_func(kwargs)
 
     if type == 1:
         vis.setType(vistypes[0])
         vis.setParm("style", 4)
         coloring_func(kwargs)
 
-def ramppreset(kwargs):
+def colorramp_func(kwargs):
+    node = kwargs["node"]
+
+    preset = node.parm("preset" + str(x)).eval()
+
+def ramppreset_func(kwargs):
 
     node = kwargs["node"]
 
@@ -177,10 +190,23 @@ def rampedit(kwargs):
 
         vis.setParm("colorramp", ramp)
 
-def colorattr(kwargs):
-
+def color_func(kwargs):
     node = kwargs["node"]
+    vistup = hou.viewportVisualizers.visualizers(
+        hou.viewportVisualizerCategory.Node,
+        node
+    )
+    index = kwargs["script_multiparm_index"]
+    colorr = node.parm("color" + index + "r").eval()
+    colorg = node.parm("color" + index + "g").eval()
+    colorb = node.parm("color" + index + "b").eval()
+    vis = vistup[int(index)]
+    vis.setParm("markercolorr", colorr)
+    vis.setParm("markercolorg", colorg)
+    vis.setParm("markercolorb", colorb)
 
+def colorattr(kwargs):
+    node = kwargs["node"]
     vistup = hou.viewportVisualizers.visualizers(
         hou.viewportVisualizerCategory.Node,
         node
@@ -195,9 +221,9 @@ def colorattr(kwargs):
         colorattr = node.parm("colorattr" + str(x)).eval()
 
         vis.setParm("colorattrib", colorattr)
-#---------------------global funcs---------------------#
+####------------------------------global funcs------------------------------####
 
-#---------------------float funcs----------------------#
+####------------------------------float funcs------------------------------####
 def rampattr_func(kwargs):
     node = kwargs["node"]
     parm = kwargs["node"]
@@ -212,47 +238,39 @@ def rampattr_func(kwargs):
     rampattr = parm.eval()
 
     vis.setParm("attrib", rampattr)
-#---------------------float funcs----------------------#
+####------------------------------float funcs------------------------------####
 
-#----------------------vec funcs------------------#
+####------------------------------vec funcs------------------------------####
 def coloring_func(kwargs):
     node = kwargs["node"]
     parm = kwargs["parm"]
-    index = int(kwargs["script_multiparm_index"])
+    index = kwargs["script_multiparm_index"]
 
     vistup = hou.viewportVisualizers.visualizers(
         hou.viewportVisualizerCategory.Node,
         node
     )
 
-    vis = vistup[index]
-    coloring = parm.eval()
+    vis = vistup[int(index)]
+    coloring = node.parm("coloring" + index).eval()
+    vis.setParm("vectorcoloring", coloring)
 
     if coloring == 0:
-        colorr = node.parm("color" + str(x) + "r").eval()
-        colorg = node.parm("color" + str(x) + "g").eval()
-        colorb = node.parm("color" + str(x) + "b").eval()
-        vis.setParm("markercolorr", colorr)
-        vis.setParm("markercolorg", colorg)
-        vis.setParm("markercolorb", colorb)
+        color_func(kwargs)
 
     if coloring != 0:
         vis.setParm("ramptype", 6)
 
 def lengthscale_func(kwargs):
-
     node = kwargs["node"]
-    parm = kwargs["node"]
+    parm = kwargs["parm"]
     index = int(kwargs["script_multiparm_index"])
-
     vistup = hou.viewportVisualizers.visualizers(
         hou.viewportVisualizerCategory.Node,
         node
     )
-
     vis = vistup[index]
-
     lengthscale = parm.eval()
     vis.setParm("lengthscale", lengthscale)
-#----------------------vec funcs------------------#
+####------------------------------vec funcs------------------------------####
 
