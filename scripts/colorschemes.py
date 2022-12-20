@@ -5,6 +5,7 @@ import hou
 
 linear = hou.rampBasis.Linear
 catrom = hou.rampBasis.CatmullRom
+
 Candy_913dcf_Peach = hou.Ramp(
     (catrom, catrom, catrom, catrom, catrom, catrom),
     (0, 0.15, 0.35, 0.65, 0.85, 1),
@@ -35,7 +36,7 @@ Inferno = hou.Ramp(
     (0, 0.25, 0.5, 0.75, 1),
     ((0, 0, 0), (0.092, 0, 0.154), (0.492, 0.003, 0.091), (0.949, 0.264, 0), (0.974, 0.996, 0.374))
 )
-Infra486Red = hou.Ramp(
+Infra_45a5ba_Red = hou.Ramp(
     (linear, linear, linear, linear, linear),
     (0, 0.25, 0.5, 0.75, 1),
     ((0.2, 0, 1), (0, 0.85, 1), (0, 1, 0.1), (0.95, 1, 0), (1, 0, 0))
@@ -65,7 +66,7 @@ Twilight_913dcf_Shifted = hou.Ramp(
     (0, 0.1, 0.26, 0.42, 0.58, 0.74, 0.9, 1),
     ((0.003, 0.001, 0.044), (0.093, 0, 0.231), (0.16, 0.292, 0.528), (0.76, 0.692, 0.764), (0.759, 0.692, 0.759), (0.507, 0.144, 0.099), (0.104, 0.001, 0.066), (0.003, 0.001, 0.044))
 )
-Two486Tone = hou.Ramp(
+Two_45a5ba_Tone = hou.Ramp(
     (linear, linear, linear, linear, linear),
     (0, 0.4999, 0.5, 0.5001, 1),
     ((0, 1, 1), (0, 0, 1), (1, 0, 1), (1, 0, 0), (1, 1, 0))
