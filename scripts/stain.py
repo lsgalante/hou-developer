@@ -1,7 +1,7 @@
 import hou
 
 from colorschemes import *
-# from overwrite import *
+from overwrite import *
 
 
 #\/#------------------------------initialize--------------------------------#\/#
@@ -101,20 +101,6 @@ def color_func(kwargs):
 
 
 #\/#------------------------------ramp funcs--------------------------------#\/#
-def presets_func(kwargs):
-    node = kwargs['node']
-    index = kwargs['script_multiparm_index']
-    vistup = hou.viewportVisualizers.visualizers(
-        hou.viewportVisualizerCategory.Node,
-        node
-    )
-    vis = vistup[int(index)]
-    preset = node.parm('presets' + index).evalAsString()
-    ramp = node.parm('ramp' + index)
-
-    ramp.set(globals()[preset], None, False)
-    ramp_func(kwargs)
-
 def ramp_func(kwargs):
     node = kwargs['node']
     nesting = int(kwargs['script_multiparm_nesting'])
@@ -132,6 +118,24 @@ def ramp_func(kwargs):
     ramp = node.parm('ramp' + index).eval()
     vis.setParm('colorramp', ramp)
 
+def presets_func(kwargs):
+    node = kwargs['node']
+    index = kwargs['script_multiparm_index']
+    vistup = hou.viewportVisualizers.visualizers(
+        hou.viewportVisualizerCategory.Node,
+        node
+    )
+    vis = vistup[int(index)]
+    preset = node.parm('presets' + index).evalAsString()
+    ramp = node.parm('ramp' + index)
+
+    ramp.set(globals()[preset], None, False)
+    ramp_func(kwargs)
+
+def menu_func(kwargs):
+    node = kwargs['node']
+    return(default_schemes)
+
 def overwrite_func(kwargs):
     node = kwargs['node']
     index = kwargs['script_multiparm_index']
@@ -142,36 +146,15 @@ def overwrite_func(kwargs):
     #     append.write(scheme)
     test = hou.ui.readInput("Overwrite Preset?", ("Yes", "Cancel"), hou.severityType.Message, 0, -1, None, None, preset)
 
-def rename_func(kwargs):
-
+def delete_func(kwargs):
     node = kwargs['node']
-
     index = kwargs['script_multiparm_index']
+    presetParm = node.parm('presets' + index)
+    presetName = presetParm.evalAsString()
+    presetIndex = presetParm.evalAsInt()
 
-    group = node.parmTemplateGroup()
-
-    presets = node.parm('presets' + index)
-    template = presets.parmTemplate()
-
-    
-
-    presetindex = presets.evalAsInt()
-
-    menuitems = presets.menuItems()
-    menuitems = list(menuitems)
-    menuitems[int(presetindex)] = "farmer"
-    menuitems = tuple(menuitems)
-
-    
-    entries = group.entries()
-    folder = group.find('vis')
-    templates = folder.parmTemplates()
-
-    print(template)
-    print()
-    print(entries)
-    # template = presets.menuItems()
-
+    overwrite = open('overwrite.py')
+    print(overwrite)
 #/\#------------------------------ramp funcs--------------------------------#/\#
 
 
@@ -182,8 +165,7 @@ def rampattr_func(kwargs):
     index = kwargs['script_multiparm_index']
     vistup = hou.viewportVisualizers.visualizers(
         hou.viewportVisualizerCategory.Node,
-        node
-    )
+        node)
     vis = vistup[int(index)]
     rampattr = parm.eval()
     vis.setParm('attrib', rampattr)
