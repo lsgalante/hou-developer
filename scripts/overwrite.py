@@ -1,5 +1,3 @@
 import hou
 
-default_schemes = ["Candy_913dcf_Peach", "Candy Peach", "Black_913dcf_to_913dcf_Orange", "Black to Orange", "Blackbody", "Blackbody", "Cividis", "Cividis", "Grayscale", "Grayscale",
-"Inferno", "Inferno", "Infra_45a5ba_Red", "Infra-Red", "Magma", "Magma", "Plasma", "Plasma", "Sand", "Sand", "Twilight", "Twilight", "Twilight_913dcf_Shifted", "Twilight Shifted",
-"Two_45a5ba_Tone", "Two-Tone", "Viridis", "Viridis", "White_913dcf_to_913dcf_Red", "White to Red", "Whitewater", "Whitewater"]
+default_schemes = ["Candy__sp__Peach", "Candy Peach", "Black__sp__to__sp__Orange", "Black to Orange", "Blackbody", "Blackbody", "Cividis", "Cividis", "Grayscale", "Grayscale", "Inferno", "Inferno", "Infra__da__Red", "Infra-Red", "Magma", "Magma", "Plasma", "Plasma", "Sand", "Sand", "Twilight", "Twilight", "Twilight__sp__Shifted", "Twilight Shifted", "Two__da__Tone", "Two-Tone", "Viridis", "Viridis", "White__sp__to__sp__Red", "White to Red", "Whitewater", "Whitewater"]
