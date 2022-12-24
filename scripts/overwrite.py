@@ -1,3 +1,0 @@
-import hou
-
-default_schemes = ["Candy__sp__Peach", "Candy Peach", "Black__sp__to__sp__Orange", "Black to Orange", "Blackbody", "Blackbody", "Cividis", "Cividis", "Grayscale", "Grayscale", "Inferno", "Inferno", "Infra__da__Red", "Infra-Red", "Magma", "Magma", "Plasma", "Plasma", "Sand", "Sand", "Twilight", "Twilight", "Twilight__sp__Shifted", "Twilight Shifted", "Two__da__Tone", "Two-Tone", "Viridis", "Viridis", "White__sp__to__sp__Red", "White to Red", "Whitewater", "Whitewater"]
