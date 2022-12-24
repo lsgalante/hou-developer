@@ -1,8 +1,7 @@
 import hou
 import importlib
-import stainmenu
-import colorschemes
-from overwrite import *
+import stain_menu
+import stain_schemes
 
 #\/#------------------------------initialize--------------------------------#\/#
 def createdestroy_func(kwargs):
@@ -33,7 +32,7 @@ def createdestroy_func(kwargs):
             presetStr = presetParm.evalAsString()
 
             rampParm = node.parm('ramp' + str(x))
-            rampParm.set(getattr(colorschemes, presetStr), None, False)
+            rampParm.set(getattr(stain_schemes, presetStr), None, False)
             rampRamp = rampParm.eval()
 
             vis.setParm('colorramp', rampRamp)
@@ -140,8 +139,8 @@ def ramp_func(kwargs):
     vis.setParm('colorramp', rampData)
 
 def menu_func():
-    importlib.reload(stainmenu)
-    menu = stainmenu.menu
+    importlib.reload(stain_menu)
+    menu = stain_menu.menu
     return(menu)
 
 def preset_func(kwargs):
@@ -165,10 +164,10 @@ def preset_func(kwargs):
             name0 = newName[1].replace(' ', '__sp__')
             name0 = name0.replace('-', '__da__')
             name1 = newName[1]
-            find = str(stainmenu.menu).rfind(name0)
+            find = str(stain_menu.menu).rfind(name0)
 
             if find == -1:
-                menu = stainmenu.menu
+                menu = stain_menu.menu
                 menuLength = len(menu)
                 menu.insert(menuLength - 36, name0)
                 menu.insert(menuLength - 36, name1)
@@ -176,7 +175,7 @@ def preset_func(kwargs):
                 file = open('C:/Users/lucas/OneDrive/Git/morphogen/scripts/stainmenu.py', 'w')
                 file.write(newMenu)
                 file.close()
-                importlib.reload(stainmenu)
+                importlib.reload(stain_menu)
                 presetParm.set(menuLength / 2 - 18)
 
                 basis = rampData.basis()
@@ -190,13 +189,13 @@ def preset_func(kwargs):
                 file = open('C:/Users/lucas/OneDrive/Git/morphogen/scripts/colorschemes.py', 'a')
                 file.write(newScheme)
                 file.close()
-                importlib.reload(colorschemes)
+                importlib.reload(stain_schemes)
 
             else:
                 hou.ui.displayMessage('Already Exists')
 
     else:
-        rampParm.set(getattr(colorschemes, presetStr), None, False)
+        rampParm.set(getattr(stain_schemes, presetStr), None, False)
         ramp_func(kwargs)
 
 def overwrite_func(kwargs):
@@ -211,7 +210,7 @@ def overwrite_func(kwargs):
     presetParm = node.parm('preset' + index)
     presetStr = presetParm.evalAsString()
 
-    oldRamp = getattr(colorschemes, presetStr)
+    oldRamp = getattr(stain_schemes, presetStr)
     basis = oldRamp.basis()
     basis = tuple('hou.' + str(x) for x in basis)
     basis = str(basis).replace("'", "")
@@ -241,7 +240,7 @@ def overwrite_func(kwargs):
     file = open('C:/Users/lucas/OneDrive/Git/morphogen/scripts/colorschemes.py', 'w')
     file.write(newStr)
     file.close()
-    importlib.reload(colorschemes)
+    importlib.reload(stain_schemes)
 
 
 def delete_func(kwargs):
@@ -259,17 +258,17 @@ def delete_func(kwargs):
     preset0 = presetStr
     preset1 = presetStr.replace('__sp__', ' ')
     preset1 = preset1.replace('__da__', ' ')
-    menu = stainmenu.menu
+    menu = stain_menu.menu
     menu.remove(preset0)
     menu.remove(preset1)
     newMenu = 'menu = ' + str(menu)
     file = open('C:/Users/lucas/OneDrive/Git/morphogen/scripts/stainmenu.py', 'w')
     file.write(newMenu)
     file.close()
-    importlib.reload(stainmenu)
+    importlib.reload(stain_menu)
     presetParm.set(0)
 
-    rampRamp = getattr(colorschemes, presetStr)
+    rampRamp = getattr(stain_schemes, presetStr)
     basis = rampRamp.basis()
     basis = tuple('hou.' + str(x) for x in basis)
     basis = str(basis).replace("'", "")
