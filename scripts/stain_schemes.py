@@ -84,4 +84,9 @@ Whitewater = hou.Ramp(
     ((0, 0, 0.9), (0, 0.9, 0.9), (1, 1, 1))
     )
 
-myvis = hou.Ramp((hou.rampBasis.CatmullRom, hou.rampBasis.CatmullRom, hou.rampBasis.CatmullRom, hou.rampBasis.CatmullRom, hou.rampBasis.CatmullRom, hou.rampBasis.CatmullRom), (0.0, 0.15, 0.35, 0.65, 0.85, 1.0), ((0.409, 0.206, 0.435), (0.528, 0.355, 0.484), (0.545, 0.416, 0.426), (0.606, 0.517, 0.266), (0.36, 0.706, 0.405), (-0.1922, 0.2153, 0.5348)))
+
+x2 = hou.Ramp(
+    (hou.rampBasis.CatmullRom, hou.rampBasis.CatmullRom, hou.rampBasis.CatmullRom, hou.rampBasis.CatmullRom, hou.rampBasis.CatmullRom, hou.rampBasis.CatmullRom),
+    (0.0, 0.15, 0.35, 0.65, 0.85, 1.0),
+    ((0.409, 0.206, 0.435), (0.528, 0.355, 0.484), (0.545, 0.416, 0.426), (0.606, 0.517, 0.266), (0.72, 0.706, 0.405), (1.0, 1.0, 0.912))
+    )

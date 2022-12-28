@@ -168,15 +168,14 @@ def preset_func(kwargs):
 
             if find == -1:
                 menu = stain_menu.menu
-                menuLength = len(menu)
-                menu.insert(menuLength - 36, name0)
-                menu.insert(menuLength - 36, name1)
+                menu.insert(0, name0)
+                menu.insert(0, name1)
                 newMenu = 'menu = ' + str(menu)
-                file = open('C:/Users/lucas/OneDrive/Git/morphogen/scripts/stainmenu.py', 'w')
+                file = open('C:/Users/lucas/OneDrive/Git/morphogen/scripts/stain_menu.py', 'w')
                 file.write(newMenu)
                 file.close()
                 importlib.reload(stain_menu)
-                presetParm.set(menuLength / 2 - 18)
+                presetParm.set(0)
 
                 basis = rampData.basis()
                 basis = tuple('hou.' + str(x) for x in basis)
@@ -185,8 +184,8 @@ def preset_func(kwargs):
                 keys = tuple(round(x, 4) for x in keys)                
                 values = rampData.values()
                 values = tuple(tuple(round(x2, 4) for x2 in x) for x in values)
-                newScheme = '\n' + name0 + ' = hou.Ramp(' + str(basis) +', ' + str(keys) + ', ' + str(values) + ')'
-                file = open('C:/Users/lucas/OneDrive/Git/morphogen/scripts/colorschemes.py', 'a')
+                newScheme = '\n' + name0 + ' = hou.Ramp(\n    ' + str(basis) +',\n    ' + str(keys) + ',\n    ' + str(values) + '\n    )'
+                file = open('C:/Users/lucas/OneDrive/Git/morphogen/scripts/stain_schemes.py', 'a')
                 file.write(newScheme)
                 file.close()
                 importlib.reload(stain_schemes)
@@ -218,7 +217,7 @@ def overwrite_func(kwargs):
     keys = tuple(round(x, 4) for x in keys)                
     values = oldRamp.values()
     values = tuple(tuple(round(x2, 4) for x2 in x) for x in values)
-    oldScheme = presetStr + ' = hou.Ramp(' + str(basis) +', ' + str(keys) + ', ' + str(values) + ')'
+    oldScheme = presetStr + ' = hou.Ramp(\n    ' + str(basis) +',\n    ' + str(keys) + ',\n    ' + str(values) + '\n    )'
 
     rampParm = node.parm('ramp' + index)
     newRamp = rampParm.evalAsRamp()
@@ -229,15 +228,15 @@ def overwrite_func(kwargs):
     keys = tuple(round(x, 4) for x in keys)                
     values = newRamp.values()
     values = tuple(tuple(round(x2, 4) for x2 in x) for x in values)
-    newScheme = presetStr + ' = hou.Ramp(' + str(basis) +', ' + str(keys) + ', ' + str(values) + ')'
+    newScheme = presetStr + ' = hou.Ramp(\n   ' + str(basis) +',\n    ' + str(keys) + ',\n    ' + str(values) + '\n    )'
 
-    file = open('C:/Users/lucas/OneDrive/Git/morphogen/scripts/colorschemes.py', 'r')
+    file = open('C:/Users/lucas/OneDrive/Git/morphogen/scripts/stain_schemes.py', 'r')
     fileStr = file.read()
     file.close()
 
     newStr = fileStr.replace(oldScheme, newScheme)
 
-    file = open('C:/Users/lucas/OneDrive/Git/morphogen/scripts/colorschemes.py', 'w')
+    file = open('C:/Users/lucas/OneDrive/Git/morphogen/scripts/stain_schemes.py', 'w')
     file.write(newStr)
     file.close()
     importlib.reload(stain_schemes)
@@ -262,7 +261,7 @@ def delete_func(kwargs):
     menu.remove(preset0)
     menu.remove(preset1)
     newMenu = 'menu = ' + str(menu)
-    file = open('C:/Users/lucas/OneDrive/Git/morphogen/scripts/stainmenu.py', 'w')
+    file = open('C:/Users/lucas/OneDrive/Git/morphogen/scripts/stain_menu.py', 'w')
     file.write(newMenu)
     file.close()
     importlib.reload(stain_menu)
@@ -276,18 +275,19 @@ def delete_func(kwargs):
     keys = tuple(round(x, 4) for x in keys)                
     values = rampRamp.values()
     values = tuple(tuple(round(x2, 4) for x2 in x) for x in values)
-    scheme = presetStr + ' = hou.Ramp(' + str(basis) +', ' + str(keys) + ', ' + str(values) + ')'
+    scheme = presetStr + ' = hou.Ramp(\n    ' + str(basis) +',\n    ' + str(keys) + ',\n    ' + str(values) + '\n    )'
 
-    file = open('C:/Users/lucas/OneDrive/Git/morphogen/scripts/colorschemes.py', 'r')
+    file = open('C:/Users/lucas/OneDrive/Git/morphogen/scripts/stain_schemes.py', 'r')
     fileStr = file.read()
     file.close()
 
     newStr = fileStr.replace(scheme, '')
 
-    file = open('C:/Users/lucas/OneDrive/Git/morphogen/scripts/colorschemes.py', 'w')
+    file = open('C:/Users/lucas/OneDrive/Git/morphogen/scripts/stain_schemes.py', 'w')
     file.write(newStr)
     file.close()
 
+    preset_func(kwargs)
 
 #/\#------------------------------ramp funcs--------------------------------#/\#
 
