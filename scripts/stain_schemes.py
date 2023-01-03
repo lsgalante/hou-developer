@@ -86,7 +86,7 @@ Whitewater = hou.Ramp(
 
 
 x2 = hou.Ramp(
-    (hou.rampBasis.CatmullRom, hou.rampBasis.CatmullRom, hou.rampBasis.CatmullRom, hou.rampBasis.CatmullRom, hou.rampBasis.CatmullRom, hou.rampBasis.CatmullRom),
+   (hou.rampBasis.CatmullRom, hou.rampBasis.CatmullRom, hou.rampBasis.CatmullRom, hou.rampBasis.CatmullRom, hou.rampBasis.CatmullRom, hou.rampBasis.CatmullRom),
     (0.0, 0.15, 0.35, 0.65, 0.85, 1.0),
-    ((0.409, 0.206, 0.435), (0.528, 0.355, 0.484), (0.545, 0.416, 0.426), (0.606, 0.517, 0.266), (0.72, 0.706, 0.405), (1.0, 1.0, 0.912))
+    ((0.435, 0.058, 0.2402), (0.528, 0.355, 0.484), (0.545, 0.416, 0.426), (0.606, 0.517, 0.266), (0.72, 0.706, 0.405), (1.0, 1.0, 0.912))
     )
