@@ -1,3 +1,7 @@
+import importlib
+import stain_menu
+import stain_schemes
+
 def add(kwargs):
     node = kwargs['node']
         
@@ -29,11 +33,11 @@ def add(kwargs):
     	naming_scheme = hou.parmNamingScheme.Base1,
     	string_type = hou.stringParmType.Regular,
     	file_type = hou.fileType.Any,
-    	menu_items = ('x'),
-    	menu_labels = ('x'),
+    	menu_items = (),
+    	menu_labels = (),
     	icon_names = ())
-    	# item_generator_script = None)
-    	# item_generator_script_language = None,
+    	# item_generator_script = ())
+    	# item_generator_script_language = None)
     	# menu_type = hou.menuType.StringReplace,
     	# disable_when = None,
     	# is_hidden = False,
@@ -56,7 +60,10 @@ def add(kwargs):
     folder_template = hou.FolderParmTemplate(
         name = 'vis',
         label = 'Vis ' + str(id),
-        parm_templates = ([enable_template, del_template]),
+        parm_templates = ([
+        	enable_template,
+        	name_template,
+        	del_template]),
         folder_type = hou.folderType.Tabs)
     
     group.append(folder_template)
@@ -95,3 +102,22 @@ def delete(kwargs):
             group.replace(parm_template, new_template)
 
     node.setParmTemplateGroup(group)
+
+def preset_menu(kwargs):
+	importlib.reload(stain_menu)
+	menu = stain_menu.menu
+	return(menu)
+
+def preset(kwargs):
+	node = kwargs['node']
+	name = kwargs['parm_name']
+	presetParm = kwargs['parm']
+
+	vis_id = name.replace('preset', '')
+	
+	presetVal = presetParm.evalAsString()
+	
+	print(presetVal)
+
+	rampParm = node.parm('ramp' + vis_id)
+	rampParm.set(getattr(stain_schemes, presetVal), None, False)
