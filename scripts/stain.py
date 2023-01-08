@@ -3,7 +3,7 @@ import importlib
 import stain_menu
 import stain_schemes
 
-#\/#------------------------------initialize--------------------------------#\/#
+##--initialize--##
 def createdestroy_func(kwargs):
     node = kwargs['node']
 
@@ -14,9 +14,7 @@ def createdestroy_func(kwargs):
     ops = node.parm('vis').eval()
 
     for x in range(ops):
-
         if (x + 1) > len(vistup):
-
             vis = hou.viewportVisualizers.createVisualizer(
                 hou.viewportVisualizers.type('vis_color'),
                 hou.viewportVisualizerCategory.Node,
@@ -44,10 +42,10 @@ def createdestroy_func(kwargs):
     if ops == 0:
         vis = vistup[0]
         vis.destroy()
-#/\#------------------------------initialize--------------------------------#/\#
+##--/initialize--##
 
 
-#\/#------------------------------global funcs------------------------------#\/#
+##--global funcs--##
 def enable_func(kwargs):
     node = kwargs['node']
     parm = kwargs['parm']
@@ -115,10 +113,10 @@ def color_func(kwargs):
     vis.setParm('markercolorr', colorr)
     vis.setParm('markercolorg', colorg)
     vis.setParm('markercolorb', colorb)
-#/\#------------------------------global funcs------------------------------#/\#
+##--/global funcs--##
 
 
-#\/#------------------------------ramp funcs--------------------------------#\/#
+##--ramp funcs--##
 def ramp_func(kwargs):
     node = kwargs['node']
     nesting = int(kwargs['script_multiparm_nesting'])
@@ -127,10 +125,12 @@ def ramp_func(kwargs):
     vistup = hou.viewportVisualizers.visualizers(
         hou.viewportVisualizerCategory.Node,
         node)
+
     if nesting == 1:
         index = kwargs['script_multiparm_index']
     if nesting > 1:
         index = kwargs['script_multiparm_index2']
+
     indexInt = int(index)
     vis = vistup[indexInt]
 
@@ -138,7 +138,6 @@ def ramp_func(kwargs):
     rampData = rampParm.eval()
     vis.setParm('colorramp', rampData)
 
-def menu_func():
     importlib.reload(stain_menu)
     menu = stain_menu.menu
     return(menu)
@@ -161,15 +160,12 @@ def preset_func(kwargs):
         newName = hou.ui.readInput("New Preset", ("Add", "Cancel"), hou.severityType.Message, 0, -1, None, None, 'Name...')
         
         if newName[0] == 0:
-            name0 = newName[1].replace(' ', '__sp__')
-            name0 = name0.replace('-', '__da__')
-            name1 = newName[1]
-            find = str(stain_menu.menu).rfind(name0)
+            find = str(stain_menu.menu).rfind(newName[1])
 
             if find == -1:
                 menu = stain_menu.menu
-                menu.insert(0, name0)
-                menu.insert(0, name1)
+                menu.insert(0, newName[1])
+                menu.insert(0, newName[1])
                 newMenu = 'menu = ' + str(menu)
                 file = open('C:/Users/lucas/OneDrive/Git/morphogen/scripts/stain_menu.py', 'w')
                 file.write(newMenu)
@@ -184,8 +180,10 @@ def preset_func(kwargs):
                 keys = tuple(round(x, 4) for x in keys)                
                 values = rampData.values()
                 values = tuple(tuple(round(x2, 4) for x2 in x) for x in values)
-                newScheme = '\n' + name0 + ' = hou.Ramp(\n    ' + str(basis) +',\n    ' + str(keys) + ',\n    ' + str(values) + '\n    )'
-                file = open('C:/Users/lucas/OneDrive/Git/morphogen/scripts/stain_schemes.py', 'a')
+                newScheme = '\n' + newName[1] + '=hou.Ramp(' + str(basis) +',' + str(keys) + ',' + str(values) + ')'
+                file = open(
+                    'C:/Users/lucas/OneDrive/Git/morphogen/scripts/stain_schemes.py',
+                    'a')
                 file.write(newScheme)
                 file.close()
                 importlib.reload(stain_schemes)
@@ -217,7 +215,7 @@ def overwrite_func(kwargs):
     keys = tuple(round(x, 4) for x in keys)                
     values = oldRamp.values()
     values = tuple(tuple(round(x2, 4) for x2 in x) for x in values)
-    oldScheme = presetStr + ' = hou.Ramp(\n    ' + str(basis) +',\n    ' + str(keys) + ',\n    ' + str(values) + '\n    )'
+    oldScheme = presetStr + '=hou.Ramp(' + str(basis) +',' + str(keys) + ',' + str(values) + ')'
 
     rampParm = node.parm('ramp' + index)
     newRamp = rampParm.evalAsRamp()
@@ -228,7 +226,7 @@ def overwrite_func(kwargs):
     keys = tuple(round(x, 4) for x in keys)                
     values = newRamp.values()
     values = tuple(tuple(round(x2, 4) for x2 in x) for x in values)
-    newScheme = presetStr + ' = hou.Ramp(\n   ' + str(basis) +',\n    ' + str(keys) + ',\n    ' + str(values) + '\n    )'
+    newScheme = presetStr + '=hou.Ramp(' + str(basis) +',' + str(keys) + ',' + str(values) + ')'
 
     file = open('C:/Users/lucas/OneDrive/Git/morphogen/scripts/stain_schemes.py', 'r')
     fileStr = file.read()
@@ -240,7 +238,6 @@ def overwrite_func(kwargs):
     file.write(newStr)
     file.close()
     importlib.reload(stain_schemes)
-
 
 def delete_func(kwargs):
     node = kwargs['node']
@@ -254,14 +251,13 @@ def delete_func(kwargs):
     presetParm = node.parm('preset' + index)
     presetStr = presetParm.evalAsString()
     presetInt = presetParm.evalAsInt()
-    preset0 = presetStr
-    preset1 = presetStr.replace('__sp__', ' ')
-    preset1 = preset1.replace('__da__', ' ')
     menu = stain_menu.menu
-    menu.remove(preset0)
-    menu.remove(preset1)
-    newMenu = 'menu = ' + str(menu)
-    file = open('C:/Users/lucas/OneDrive/Git/morphogen/scripts/stain_menu.py', 'w')
+    menu.remove(presetStr)
+    menu.remove(presetStr)
+    newMenu = 'menu=' + str(menu)
+    file = open(
+        'C:/Users/lucas/OneDrive/Git/morphogen/scripts/stain_menu.py',
+        'w')
     file.write(newMenu)
     file.close()
     importlib.reload(stain_menu)
@@ -275,47 +271,50 @@ def delete_func(kwargs):
     keys = tuple(round(x, 4) for x in keys)                
     values = rampRamp.values()
     values = tuple(tuple(round(x2, 4) for x2 in x) for x in values)
-    scheme = presetStr + ' = hou.Ramp(\n    ' + str(basis) +',\n    ' + str(keys) + ',\n    ' + str(values) + '\n    )'
 
-    file = open('C:/Users/lucas/OneDrive/Git/morphogen/scripts/stain_schemes.py', 'r')
+    scheme = presetStr + '=hou.Ramp(' + str(basis) + ',' + str(keys) + ',' + str(values) + ')'
+
+    file = open(
+        'C:/Users/lucas/OneDrive/Git/morphogen/scripts/stain_schemes.py',
+        'r')
     fileStr = file.read()
     file.close()
 
     newStr = fileStr.replace(scheme, '')
 
-    file = open('C:/Users/lucas/OneDrive/Git/morphogen/scripts/stain_schemes.py', 'w')
+    file = open(
+        'C:/Users/lucas/OneDrive/Git/morphogen/scripts/stain_schemes.py',
+        'w')
     file.write(newStr)
     file.close()
 
     preset_func(kwargs)
 
-#/\#------------------------------ramp funcs--------------------------------#/\#
+##--/ramp funcs--##
 
 
-#\/#------------------------------float funcs-------------------------------#\/#
+##--float funcs--##
 def rampattr_func(kwargs):
     node = kwargs['node']
     parm = kwargs['node']
     index = kwargs['script_multiparm_index']
     vistup = hou.viewportVisualizers.visualizers(
         hou.viewportVisualizerCategory.Node,
-        node
-        )
+        node)
     vis = vistup[int(index)]
     rampattr = parm.eval()
     vis.setParm('attrib', rampattr)
-#/\#------------------------------float funcs-------------------------------#/\#
+##--/float funcs--##
 
 
-#\/#------------------------------vec funcs---------------------------------#\/#
+##--vec funcs--##
 def coloring_func(kwargs):
     node = kwargs['node']
     parm = kwargs['parm']
     index = kwargs['script_multiparm_index']
     vistup = hou.viewportVisualizers.visualizers(
         hou.viewportVisualizerCategory.Node,
-        node
-        )
+        node)
     vis = vistup[int(index)]
     coloring = node.parm('coloring' + index).eval()
     vis.setParm('vectorcoloring', coloring)
@@ -333,8 +332,7 @@ def lengthscale_func(kwargs):
     index = kwargs['script_multiparm_index']
     vistup = hou.viewportVisualizers.visualizers(
         hou.viewportVisualizerCategory.Node,
-        node
-        )
+        node)
     vis = vistup[int(index)]
     lengthscale = parm.eval()
     vis.setParm('lengthscale', lengthscale)
@@ -344,10 +342,9 @@ def colorattr_func(kwargs):
     index = kwargs['script_multiparm_index']
     vistup = hou.viewportVisualizers.visualizers(
         hou.viewportVisualizerCategory.Node,
-        node
-        )
+        node)
     vis = vistup[int(index)]
     colorattr = node.parm('colorattr' + index).eval()
     vis.setParm('colorattrib', colorattr)
-#/\#------------------------------vec funcs---------------------------------#/\#
+##--/vec funcs--##
 
