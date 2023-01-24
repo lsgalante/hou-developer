@@ -34,4 +34,4 @@ Whitewater=hou.Ramp((hou.rampBasis.Linear, hou.rampBasis.Linear, hou.rampBasis.L
 
 Happy_Dragon=hou.Ramp((hou.rampBasis.CatmullRom, hou.rampBasis.CatmullRom, hou.rampBasis.CatmullRom, hou.rampBasis.CatmullRom),(0.0, 0.4587, 0.9, 1.0),((0.0, 0.0, 0.0), (0.546, 0.099, 0.2671), (0.0, 1.0, 0.0), (0.0, 1.0, 1.0)))
 
-Blue_to_White=hou.Ramp((hou.rampBasis.MonotoneCubic, hou.rampBasis.MonotoneCubic),(0.0, 1.0),((1.0, 1.0, 1.0), (0.0, 0.0, 1.0)))
+White_to_Blue=hou.Ramp((hou.rampBasis.MonotoneCubic, hou.rampBasis.MonotoneCubic),(0.0, 1.0),((1.0, 1.0, 1.0), (0.0, 0.0, 1.0)))
