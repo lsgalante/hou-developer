@@ -1,1 +1,1 @@
-presets=['xd', 'xd', 'z', 'z', '_separator_', '_separator_', 'Constant', 'Constant', 'Hill', 'Hill', 'Linear', 'Linear', 'Round', 'Round', 'Sharp', 'Sharp', 'Smooth', 'Smooth', 'Steps', 'Steps', 'Valley', 'Valley', '_separator_', '_separator_', 'new', 'New...']
+presets=['my_sharp', 'my_sharp', 'xd', 'xd', '_separator_', '_separator_', 'Constant', 'Constant', 'Hill', 'Hill', 'Linear', 'Linear', 'Round', 'Round', 'Sharp', 'Sharp', 'Smooth', 'Smooth', 'Steps', 'Steps', 'Valley', 'Valley', '_separator_', '_separator_', 'new', 'New...']
