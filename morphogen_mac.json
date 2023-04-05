@@ -1,0 +1,13 @@
+{
+	"env":
+	[
+		{
+			"HOUDINI_PATH":
+			"/Users/lucas/Library/CloudStorage/OneDrive-Personal/Git/morphogen"
+		},
+		{
+			"PYTHONPATH": 
+			"/Users/lucas/Library/CloudStorage/OneDrive-Personal/Git/morphogen/scripts"
+		}
+	]
+}
