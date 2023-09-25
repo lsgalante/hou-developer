@@ -1,3 +1,3 @@
 DOL - Digital Organ Library
 
-Recreating lifelike elements in digital containers
+Creating lifelike elements in digital containers
